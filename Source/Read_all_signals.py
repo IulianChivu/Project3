@@ -19,7 +19,7 @@ for i in range(len(allSignals_list)):
 #     raw = mne.io.read_raw_fif(fName)
 # =============================================================================
 
-print(type(allSignals_list))
+print(allSignals_list)
 
 #crearea bazei de date
 class EEG_signal:

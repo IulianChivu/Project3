@@ -16,7 +16,7 @@ print(raw.info)
 print(len(raw))
 
 #extracting the samples of a certain signal as a tuple
-raw_selection = raw["AF3", 0:len(raw)]
+raw_selection = raw["CB2", 0:len(raw)]
 
 
 print(type(raw_selection))
