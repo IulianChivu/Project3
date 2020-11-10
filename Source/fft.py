@@ -1,31 +1,38 @@
 import mne
 import os
 import matplotlib.pyplot as plt
-from scipy.fft import fft, fftfreq, fftshift
 import numpy as np
 
 cwdPath = os.getcwd()
 cwdPath = cwdPath.replace("Source", "Data")
-fileItem = "/imagined_speech_MM05_10_tag3.raw.fif"
+allSignalsList = os.listdir(cwdPath)
+#Add "/" before the names of data and concatenatenate with cwdPath
+for i in range(len(allSignalsList)):
+    allSignalsList[i] = "/" + allSignalsList[i]
+    
+fileItem = allSignalsList[1]
 fName = cwdPath + fileItem
 raw = mne.io.read_raw_fif(fName)
 
+#Store all data names from cwd in a list
+
 
 #print(raw.info)
-
 #number of samples
 #print(len(raw))
 
+#extracting the frist channel
+channelName = raw.ch_names[0]
+
 #extracting the samples of a certain signal as a tuple
-raw_selection = raw["CB2", 0:len(raw)]
+raw_selection = raw[channelName, 0:len(raw)]
 
-
-#print(type(raw_selection))
-#print(raw_selection[1])
+#The sampling frequency
+Fs = 10**3
 
 #plottin one of the signals
 plt.figure()
-plt.title("One of the signals")
+plt.title(channelName)
 plt.xlabel("Time [s]")
 plt.ylabel("Amplitude [V]")
 time = raw_selection[1]
@@ -33,27 +40,31 @@ time = raw_selection[1]
 amplitude = raw_selection[0].T
 plt.plot(time, amplitude)
 
+#Extracting the signal's samples
+samples = raw_selection[0]
 
-yf = np.fft.fft(raw_selection[0])
+#Performing FFT for the entire signal
+yf = np.fft.fft(samples)
 yf = yf.T
-print("yf shape = " + str(yf.shape))
-print("yf type = " + str(type(yf)))
-N = raw_selection[0].size
-print("type N = " + str(type(N)))
+N = samples.size
 
+#Genrating the frequency bins
+freqRes = Fs/N
+freqs = np.arange(0, Fs/2, freqRes)
 
-freqs = np.linspace(0, 500, N//2)
-print("freqs type = " + str(type(freqs)))
-
+#Plotting the entire spectrum of the signal
 plt.figure()
+plt.title("Spectrum of " + channelName)
+plt.xlabel("Frequency [Hz]")
+plt.ylabel("Amplitude (Energy) [J]")
 plt.plot(freqs, np.abs(yf[0:N//2]))
 
 
-yshort = raw_selection[0].T[0:100].T
+windowN = 1000
+yshort = samples[:, 0:windowN]
 print(type(yshort))
 yfShort = np.fft.fft(yshort)
 yfShort = yfShort.T
-print(np.abs(yfShort))
-xfShort = np.arange(0, 1000, 10)
+xfShort = np.arange(0, 1000, 1)
 plt.figure()
-plt.plot(xfShort, np.abs(yfShort))
+plt.plot(np.abs(yfShort))

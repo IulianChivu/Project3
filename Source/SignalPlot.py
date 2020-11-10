@@ -26,7 +26,7 @@ print(raw_selection[1])
 plt.figure()
 plt.title("One of the signals")
 plt.xlabel("Time [s]")
-plt.ylabel("Amplitude [uV]")
+plt.ylabel("Amplitude [V]")
 x = raw_selection[1]
 #samples array must be transposed due to the way it is stored 
 y = raw_selection[0].T
