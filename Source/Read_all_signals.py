@@ -19,17 +19,38 @@ for i in range(len(allSignals_list)):
 #     raw = mne.io.read_raw_fif(fName)
 # =============================================================================
 
-print(allSignals_list)
+#print(allSignals_list)
 
-#crearea bazei de date
-class EEG_signal:
-    chanel_name = 'empty'
-    Delta = 0
-    Theta = 0
-    Alpha = 0
-    Beta = 0
-    Gamma = 0
+#example of reading 3 raw data
+#store the data from the files in a list
+raw = []
+for i in range(3):
+    fName = cwdPath + allSignals_list[i]
+    raw.append(mne.io.read_raw_fif(fName))
+
+print("lungimea setului de date:", len(raw))
+
+#number of samples
+for i in range(3):
+    print("nr of samples in the", i+1, "file =", len(raw[i]))
     
-class Data_set:
-    name = 'empty'
-    signal = []
+#print(type(raw[i]))
+
+#extracting the samples of all signals as a list of tuples
+raw_selection = []
+for i in range(3):
+    raw_selection.append(raw[i]["CB2", 0:len(raw[i])])
+
+
+
+print(type(raw_selection[0])) #tuple
+print(raw_selection[0][1]) #samples
+
+#verify the number of samples
+for i in range(3):
+    print("nr of samples in the", i+1, "file =", len(raw_selection[i][1]))
+    
+print(type(raw_selection[0][1]))
+print(raw_selection[0][1].shape)
+
+#raw_selection[0][1] = np.delete(raw_slelection[0][1], [0:500])
