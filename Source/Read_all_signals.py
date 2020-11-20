@@ -1,16 +1,17 @@
 import mne
 import os
 import matplotlib.pyplot as plt
+import numpy as np
 
 cwdPath = os.getcwd()
 cwdPath = cwdPath.replace("Source", "Data")
 
 #store all data names from cwd in a list
-allSignals_list = os.listdir(cwdPath)
+all_signals_list = os.listdir(cwdPath)
 
 #add "/" before the names of data for concatenation with cwdPath
-for i in range(len(allSignals_list)):
-    allSignals_list[i] = "/" + allSignals_list[i]
+for i in range(len(all_signals_list)):
+    all_signals_list[i] = "/" + all_signals_list[i]
 
 # =============================================================================
 # #example of reading all raw data
@@ -19,16 +20,29 @@ for i in range(len(allSignals_list)):
 #     raw = mne.io.read_raw_fif(fName)
 # =============================================================================
 
-#print(allSignals_list)
+#print(all)signals_list)
 
 #example of reading 3 raw data
 #store the data from the files in a list
 raw = []
 for i in range(3):
-    fName = cwdPath + allSignals_list[i]
+    fName = cwdPath + all_signals_list[i]
     raw.append(mne.io.read_raw_fif(fName))
 
 print("lungimea setului de date:", len(raw))
+
+samples = raw[0]
+
+
+samples_list = list()
+window_size = 1000
+offset = 500
+for cn in samples.ch_names:
+    for index in range(0, 7):
+        samples_list.append(samples[cn,  offset: offset+window_size][0])
+        offset += 500
+    
+
 
 #number of samples
 for i in range(3):
