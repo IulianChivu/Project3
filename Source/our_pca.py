@@ -1,9 +1,12 @@
 import numpy as np
+import time
 
-def our_pca(input_data: np.ndarray) -> np.ndarray:
+def our_pca(input_data: np.ndarray):
     
     #This function supposes the input data is
     #a numpy.ndarray with shape (observations, axes)
+    
+    pca_start = time.time()
     
     print("Original matrix:")
     print(input_data)
@@ -49,5 +52,9 @@ def our_pca(input_data: np.ndarray) -> np.ndarray:
     print("Original matrix in transformed space:")
     print(np.dot(input_data, transform_matrix))
     
+    #printing out the time spent in this function
+    pca_end = time.time()
+    print("Time spent in pca function [s]: ", pca_end - pca_start)
+    
     #returning the input data in the new basis
-    return np.dot(input_data, transform_matrix)
+    return (np.dot(input_data, transform_matrix), np.sort(eigen_values)[::-1])
