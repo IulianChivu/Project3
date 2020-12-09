@@ -29,7 +29,7 @@ our_file = open('originaldata', 'a')
 
 our_data = list()
 
-for i in range(len(all_signals_list) - 991):
+for i in range(len(all_signals_list) - 803):
     
     f_name = cwdPath + all_signals_list[i]
     raw = mne.io.read_raw_fif(f_name)
@@ -37,7 +37,7 @@ for i in range(len(all_signals_list) - 991):
     
     for channel_name in raw.ch_names[:n_eeg]:
         samples = raw[channel_name][0]
-        window = samples[:, 500:501]
+        window = samples[:, 1000:1100]
         obs_line.append(window)
         
     obs_line = np.hstack(obs_line)
@@ -46,7 +46,11 @@ for i in range(len(all_signals_list) - 991):
     
 our_data = np.vstack(our_data)
 
+
+
 our_file.close()
+
+
 
 end = time.time()
 print("Elapsed time [s]: " + str(end- start))
