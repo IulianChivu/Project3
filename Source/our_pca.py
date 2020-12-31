@@ -2,12 +2,17 @@
 import numpy as np
 import time
 
-def our_pca(input_data: np.ndarray):
+def our_pca(input_data: np.ndarray, info_amount: float):
     
     #This function supposes the input data is
     #a numpy.ndarray with shape (observations, axes)
     
     pca_start = time.time()
+    
+    #Exiting if the information amount to be kept is 
+    #out of range
+    if info_amount <= 0 or info_amount >= 1:
+        return "Information amount out of range, must be in (0:1)"
     
     '''
     print("Original matrix:")
@@ -51,11 +56,36 @@ def our_pca(input_data: np.ndarray):
     eigen_values = np.abs(eigen_values)
     eigen_vectors = np.abs(eigen_vectors)
 
+    #determining indexes of eigen values sorted in descending order
+    indexes = eigen_values.argsort()[::-1]  
+    
+    #eigen values sorted in descending order 
+    eigen_values[::-1].sort()
+    
+    #ratio to know when the specified amount of information
+    #has been reached
+    ratio = 0
+    
+    #index of the last principal component kept according to 
+    #the specified amount of information
+    pc_index = 0
+    
+    #determining the components to be kept according to
+    #the specified amount of information
+    EIGEN_SUM = np.sum(eigen_values)
+    while(ratio < info_amount):
+        pc_index = pc_index + 1
+        ratio = np.sum(eigen_values[0:pc_index]) / EIGEN_SUM
+        
+    '''
+    print(ratio)
+    print(pc_index)
+    '''
+    
     #computing the transform matrix ordering in a 
     #descending order the eigen vectors
     #by their correspondig eigen values
-    idexes = eigen_values.argsort()[::-1]  
-    transform_matrix = eigen_vectors[:,idexes]
+    transform_matrix = eigen_vectors[:,indexes[0 : pc_index]]
 
     '''
     print("Transform matrix:")
@@ -72,4 +102,4 @@ def our_pca(input_data: np.ndarray):
     print("Time spent in pca function [min]: ", (pca_end - pca_start) / 60)
     
     #returning the input data in the new basis
-    return (np.dot(input_data, transform_matrix), np.sort(eigen_values)[::-1])
+    return (np.dot(input_data, transform_matrix), eigen_values)
