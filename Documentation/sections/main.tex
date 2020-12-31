@@ -1,23 +1,33 @@
-\documentclass[12pt]{report}
+\documentclass[12pt]{article}
 \usepackage{graphicx}
 \graphicspath{ {images/} }
 
+\usepackage{subfiles} % Best loaded last in the preamble
+\usepackage{hyperref} %for links
+
 \title{
 
-	{Insert title here}\\
-	{\large Something}
+	{Determinarea fluxului neuronal din semnale
+	electroencefalografice (EEG) in timpul rostirii cuvintelor
+	izolate}\\
+	{\large Proiect 3}
 
 
 }
 
-\author{Us}
-\date{today}
+\author{
+Coordonator stiintific: -\\
+Student 1: Chisalescu Bogdan \\
+Student 2: Chivu Gheorghe-Iulian}
+\date{date of today}
 
 \begin{document}
 
 \maketitle
 
-\chapter{Introduction}
-\include{introduction}
+
+
+\subfile{dedication}
+\subfile{introduction}
 
 \end{document}

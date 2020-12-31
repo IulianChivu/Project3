@@ -1,3 +1,4 @@
+
 import numpy as np
 import time
 
@@ -53,7 +54,7 @@ def our_pca(input_data: np.ndarray):
     #computing the transform matrix ordering in a 
     #descending order the eigen vectors
     #by their correspondig eigen values
-    idexes = eigen_values.argsort()[::-1]   
+    idexes = eigen_values.argsort()[::-1]  
     transform_matrix = eigen_vectors[:,idexes]
 
     '''
