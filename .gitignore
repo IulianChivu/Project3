@@ -101,3 +101,13 @@ fabric.properties
 
 *.raw
 *.fif
+
+
+###############################
+#Folders
+###############################
+
+
+Weights/
+NN_Data/
+NN_Info/

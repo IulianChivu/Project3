@@ -102,4 +102,5 @@ def our_pca(input_data: np.ndarray, info_amount: float):
     print("Time spent in pca function [min]: ", (pca_end - pca_start) / 60)
     
     #returning the input data in the new basis
-    return (np.dot(input_data, transform_matrix), eigen_values)
+    return np.dot(input_data, transform_matrix)
+
