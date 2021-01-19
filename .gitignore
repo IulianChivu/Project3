@@ -111,3 +111,6 @@ fabric.properties
 Weights/
 NN_Data/
 NN_Info/
+Biases/
+Labels/
+Source/__pycache__

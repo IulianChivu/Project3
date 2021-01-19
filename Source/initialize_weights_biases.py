@@ -31,6 +31,17 @@ for i in range(WEIGHTS_SETS):
     w = np.random.rand(WEIGHTS_DIMS[i][0],WEIGHTS_DIMS[i][1])
     file_name = '../Weights/w' + str(i)
     np.savetxt(file_name, w, delimiter=',')
+    
+
+cwdPath = os.getcwd()
+cwdPath = cwdPath.replace("Source", "Biases")
+
+#initializing biases
+for i in range(WEIGHTS_SETS):
+    b = np.random.rand(WEIGHTS_DIMS[i][0], 1)
+    file_name = '../Biases/b' + str(i)
+    np.savetxt(file_name, b, delimiter=',')
+
 
 end = time.time()
 print("Elapsed time [s]: " + str(end- start))
