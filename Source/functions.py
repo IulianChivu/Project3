@@ -15,3 +15,6 @@ def sigmoid_derivative(z):
 def loss(y_hat, y):
     return -( y * np.log2(y_hat) + (1-y) * np.log2(1-y_hat) )
 
+def cost(m , Loss):
+    return 1/m * np.sum(Loss)
+
