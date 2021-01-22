@@ -1,9 +1,11 @@
 import mne
 import os
+import time
+import csv
+import numpy as np
 from our_pca import our_pca
 import matplotlib.pyplot as plt
-import numpy as np
-import time
+
 np.set_printoptions(threshold=np.inf, linewidth=np.inf)
 
 
@@ -21,7 +23,7 @@ for i in range(len(all_signals_list)):
 
 
 #we have no P9, P10, AF7, AFZ, AF8 gonzales, P9 you find in filmele np.reverse(am)+trix
-#currently 40 channels
+#currently 40 channels in the parpalac
 channels = "C5 C3 C1 CZ C2 C4 C6 CP5 CP3 CP1 CPZ \
 CP2 CP4 CP6 P7 P5 P3 PZ P2 P4 P6 P8 FC5 FC3 FC1 FCZ FC2 FC4 FC6 \
 F7 F5 F3 F1 FZ F2 F4 F6 F8 AF3 AF4"
@@ -33,7 +35,7 @@ tags = ["tag2", "tag3"]
 
 MEAN_LEN = 10
 window_len = 1000
-WINDOW_NUMBER = 1
+WINDOW_NUMBER = 2
 OVERLAP = 500
 START_SAMPLE = 500
 SEQUENCE_LENGTH = 1000
@@ -65,12 +67,12 @@ for i in range(len(selected_tags)):
                 window = samples[:, START_SAMPLE : START_SAMPLE + SEQUENCE_LENGTH]
                 window_mean = np.dot(window, mean_matrix) / MEAN_LEN
                 obs_line.append(window_mean)
-                START_SAMPLE += OVERLAP
+                START_SAMPLE += window_len - OVERLAP
             
         obs_line = np.hstack(obs_line)
         our_data.append(obs_line)
     
-    
+print(obs_line.shape)
 our_data = np.vstack(our_data)
 our_data = our_pca(our_data, 0.95)
 

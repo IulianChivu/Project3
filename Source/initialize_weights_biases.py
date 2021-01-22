@@ -28,6 +28,7 @@ def initialize_weights_biases():
     #make sure you have enough dimensions set in the file
     WEIGHTS_DIMS = list(np.loadtxt(cwdPath + "/weights_dims", dtype='int', delimiter=','))
     
+    np.random.seed(1)
     
     for i in range(WEIGHTS_SETS):
         w = np.random.rand(WEIGHTS_DIMS[i][0],WEIGHTS_DIMS[i][1])

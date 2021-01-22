@@ -24,11 +24,11 @@ Y = np.array(Y_temp).astype('float')
 
 initialize_weights_biases()
 
-LEARNING_RATE = 0.01
+LEARNING_RATE = 0.05
 
 cost_list = list()
 
-for i in range(1000):
+for i in range(20):
     
     ffw = feed_forward()
     prediction = ffw[1][ len(ffw[1]) - 1]

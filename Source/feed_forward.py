@@ -25,7 +25,7 @@ def feed_forward():
     
     #initially A = X = the entire data set
     #trying full vectorization
-    A = np.loadtxt(dPath + "/nn_data", dtype='f', delimiter=',')
+    A = np.loadtxt(dPath + "/nn_data.csv", dtype='f', delimiter=',')
     
     
     #Z must be cahced, needed in backpropagation
@@ -57,7 +57,7 @@ def feed_forward():
         Z_list.append(Z)
         
         if i != L-2:
-            A = tanh(Z)
+            A = relu(Z)
             A_list.append(A)
         else:
             A = sigmoid(Z)

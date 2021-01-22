@@ -1,6 +1,7 @@
 import mne
 import os
 import matplotlib.pyplot as plt
+import numpy as np
 
 cwdPath = os.getcwd()
 cwdPath = cwdPath.replace("Source", "Data")
@@ -20,14 +21,45 @@ raw_selection = raw["CB2", 0:len(raw)]
 
 
 print(type(raw_selection))
-print(raw_selection[1])
+#print(raw_selection[1])
 
+
+x = raw_selection[1]
+#samples array must be transposed due to the way it is stored 
+y = raw_selection[0]
+
+MEAN_LEN = 10
+window_len = 1000
+WINDOW_NUMBER = 7
+OVERLAP = 500
+START_SAMPLE = 0
+SEQUENCE_LENGTH = 1000
+
+mean_matrix = np.repeat(np.identity(window_len//MEAN_LEN), repeats = MEAN_LEN, axis=0)
+obs_line = list()
+
+for k in range(WINDOW_NUMBER):
+    print(k)
+    print("y: " + str(y.shape))
+    
+    window = y[:, START_SAMPLE : START_SAMPLE + SEQUENCE_LENGTH]
+    window_mean = np.dot(window, mean_matrix) / MEAN_LEN
+    
+    print("multiply" + str(window.shape) + "with " + str(mean_matrix.shape))
+    print("results: " + str(window_mean.shape))
+    
+    obs_line.append(window_mean)
+    START_SAMPLE += window_len - OVERLAP
+
+obs_line = np.hstack(obs_line)
+
+y = raw_selection[0].T
 #plottin one of the signals
 plt.figure()
 plt.title("One of the signals")
 plt.xlabel("Time [s]")
 plt.ylabel("Amplitude [V]")
-x = raw_selection[1]
-#samples array must be transposed due to the way it is stored 
-y = raw_selection[0].T
 plt.plot(x, y)
+
+plt.figure()
+plt.plot(obs_line.T)
