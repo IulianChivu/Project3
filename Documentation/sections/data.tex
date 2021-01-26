@@ -1,0 +1,47 @@
+\section{Setul de date}
+
+\quad Pentru aceasta lucrare ne-am folosit de setul de date pus la dispozitie de 
+Departametul de Stiinta Calculatoarelor a Universitatii din Toronto: 
+\href{http://www.cs.toronto.edu/~complingweb/data/karaOne/karaOne.html}
+{The KARA ONE Database}. Acest set de date a fost achizitionat in urma unui studiu
+bazat pe aceleasi principii ca cele descrise in sectiunea semnalelor EEG. 
+O casca speciala a fost plasata pe capul subiectilor, ce sacneaza 64 de canale
+si are electrozii plasati dupa sistemul 10-20; toate datele au fost amplificate
+folosind un amplificator SynAmps RT si esantionate la o frecventa de 
+esantionare $ F_S  $ = 1 KHz. Timp de 30 pana la 40 de minute subiectii si-au imaginat
+rostirea dar au si rostit 7 foneme si 4 cuvinte.
+
+
+\quad In aceasta lucrare am preluat semnalele EEG filtrate ce au rezultat in urma 
+studiului. Au rezultat astfel un numar de 993 de observatii si 64 de canale pentru fiecare
+observatie. Timpul alocat pentru o observatie a fost de 5 secunde. Stiind frecventa de 
+esantionare de 1 KHz ne rezulta aproximativ 5000 de esantioane pentru fiecare canal.
+
+\begin{figure}[H]
+	\includegraphics[width=10cm]{semnale_eeg.png}
+	\centering
+	\caption{O parte din canalele EEG ale unei observatii}
+\end{figure}
+
+\begin{figure}[H]
+	\includegraphics[width=12cm]{semnal_eeg_solo.png}
+	\centering
+	\caption{Canalul 'CB2' al unei observatii intins pe durata de aproximativ 5 secunde}
+\end{figure}
+
+
+
+\quad Avand la dispozitie toate datele necesare, putem construi structura pe care o vor
+avea datele de intrare ale clasificatorului. Numarul de observatii este de 993, iar 
+numarul de canale EEG pentru fiecare observatie este de 64, avand in vedere ca la
+intrarea clasificatorlui vom introduce cate o observatie, vom considera toate cele 64 de 
+canale ca trasaturi, canalele fiind aici reprezentate de esantioanele lor. 
+Un canal contine aproximativ 5000 de esantioane, insa acest numar nu este constant pe intreg setul de date. 
+Considerand faptul ca, in timpul studiului subiectul a desfasurat aceeasi 
+activitate cognitiva de mai multe ori in decursul celor 5 secunde ale unei observatii, am luat decizia de a
+prelua esantioanele de la indicele 499 pana la 4499, deci un numar total de 4000
+de esantioane.
+
+Cele 64 de canale, acum a cate 4000 de esantioane fiecare, vor fi liniarizate. In 
+acest caz datele de intrare vor avea forma (993 x 4000 $ \cdot $ 64)
+ =  (993 x 256,000), adica 993 de observatii a cate 256,000 de trasaturi.

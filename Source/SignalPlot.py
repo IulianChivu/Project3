@@ -56,7 +56,7 @@ obs_line = np.hstack(obs_line)
 y = raw_selection[0].T
 #plottin one of the signals
 plt.figure()
-plt.title("One of the signals")
+plt.title("CB2")
 plt.xlabel("Time [s]")
 plt.ylabel("Amplitude [V]")
 plt.plot(x, y)

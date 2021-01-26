@@ -1,12 +1,24 @@
 \documentclass[12pt]{article}
-\usepackage{graphicx}
-\graphicspath{ {images/} }
 
-\usepackage{subfiles} % Best loaded last in the preamble
+\usepackage{graphicx}
+\graphicspath{ {../figures} }
+
 \usepackage{hyperref} %for links
+\usepackage{amssymb}
+\usepackage{float} % privides the H option
+\usepackage{subfig} 
+\usepackage{a4wide} %makes the page size more MS word like
+\usepackage{xcolor} %for colour
+
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+
+\usepackage{hyperref} %for links
+\usepackage{subfiles} % Best loaded last in the preamble
 
 \title{
 
+	\vspace{-4cm}
 	{Determinarea fluxului neuronal din semnale
 	electroencefalografice (EEG) in timpul rostirii cuvintelor
 	izolate}\\
@@ -25,9 +37,14 @@ Student 2: Chivu Gheorghe-Iulian}
 
 \maketitle
 
-
+\vspace{2cm}
 
 \subfile{dedication}
-\subfile{introduction}
+\vspace{0.5cm}
+\subfile{signals}
+\vspace{0.5cm}
+\subfile{data}
+\vspace{0.5cm}
+\subfile{pca}
 
 \end{document}
