@@ -113,4 +113,5 @@ NN_Data/
 NN_Info/
 Biases/
 Labels/
-Source/__pycache__
+Source/__pycache_
+Documentation/figures_
