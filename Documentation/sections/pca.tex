@@ -5,3 +5,51 @@ Deoarece datele de intrare sunt semnificative ca dimensiune, iar pentru aceasta
 lucrare am dispus de resurse relativ modeste de calcul, am luat decizia de a 
 selecta doar canalele EEG pe care le-am considerat importante si mai apoi
 de a aplica o analiza a componentelor principale . }
+
+Canalele EEG pe care le-am considerat cele mai importante si de care am dispus in 
+setul de date sunt urmatoarele: C5, C3, C1, CZ, C2, C4, C6, CP5, CP3, CP1, CPZ,
+CP2, CP4, CP6, P7, P5, P3, PZ, P2, P4, P6, P8, FC5, FC3, FC1, FCZ, FC2, FC4, FC6,
+F7, F5, F3, F1, FZ, F2, F4, F6, F8, AF3, AF4.
+In urma acestei selectii, din cele 64 de canale initiale vor ramane 40, ceea ce 
+ne modifica structura datelor de la (993 x 256,000) la (993 x 160,000).
+
+Analiza componentelor principale (PCA) este o metoda prin care se poate reduce
+dimensionalitatea datelor de intrare pastrand in acelasi timp cea mai mare
+cantitate din informatie. Algoritmul PCA reprezinta o modalitate
+de implementare a transformatei Karhunen–Loève. Pentru a reduce dimensionalitatea
+datelor dar si de a pastra cat mai multa informatie este necesara o transformare
+liniara cu proprietati de unitaritate, conservare si compactare a energiei.
+Transformata Karhunen–Loève ne ofera aceste proprietati. Avand la dispozitie
+un vector $ \xi = [\xi(1), \xi(2), ..., \xi(n)  ] \in \Re_{(1  n)} $
+reprezentand datele ce vor fi transformate, putem gasi reprezentarea vectorului in
+spatiul transformat ca fiind $ \eta=L\xi $, unde $ L $ este o transformare liniara.
+Pentru a determina transformarea ne vom intoarce in spatiul original: $ \tilde{\xi} = L^T \tilde{\eta} $, transformarea inversa este transpusa lui $ L $ datorita proprietatii
+de unitaritate iar $ \tilde{\eta} $ este o aproximatie a lui $ \eta $ deoarece ne 
+dorim ca in urma transformarii sa reducem din componentele vectorului $ \eta $.
+In acest mod, putem determina eroarea de transformare in sensul erorii patratice medii
+ca fiind (...)
+Putem gasi transformarea $ L $ daca minimizam expresia erorii astfel incat
+$ \epsilon = \epsilon_{min} $. Se poate demonstra matematic ca transformarea $ L $
+este formata din vectorii propri ai matricii de covarianta a vectorului $ \xi $
+asezati pe coloana si ordonati descrescator dupa valorile proprii corespunzatoare.
+Transformata Karhunen–Loève, gaseste o baza vetoriala de reprezentare astfel incat 
+datele sa se grupeze de-a lungul a cat mai multe axe pe care varianta este maxima.
+Pe acele axe pe care varianta nu este maxima, putem inlocui valorile din setul de 
+date cu media axei respective, iar in cazul in care media a fost extrasa inaintea
+transformarii, devenind astfel zero, putem eliminia componentele respective.
+
+In cazul nostru, vectorul $ \xi $ este un vector ale carui elemente sunt la
+randul lor vectori n-dimensionali, deci vom aplia algoritmul PCA asupra unei matrici,
+a carei forma este determinata de setul de date.
+\textcolor{red}{Deoarece dispunem de sisteme de calcul cu capacitate de stocare 
+relativ modesta, am luat decizia de a media cele 4000 de esantioane ale fiecarui
+canal EEG pe ferestre de cate 10 esantioane fara suprapunere.} In urma medierii,
+structura setului de date se modifica de la (993 x 160,000) la (993 x 16,000).
+
+
+\textcolor{red}{Dupa multiple incercari esuate, am ajuns la concluzia ca setul de date
+este inca mult prea mare pentru a-l putea procea cu puterea de calcul si capacitatea
+de stocare de care dispunem, astfel ca am luat decizia de a clasifica semnalele 
+pentru 2 clase in loc de 11 cum prevedea setul de date initial.} Astfel, structura
+datelor se modifica de la (993 x 16,000) la (182 x 16,000), dimensiunea de 182
+fiind justificata de numar de observatii insumat pentru cele doua clase.
