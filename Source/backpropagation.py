@@ -67,7 +67,7 @@ def back_propagation(Z_list, A_list):
 
             #print("multiplying "+str(W.T.shape)+" with "+str(dZ_old.shape))
 
-            dZ = np.multiply(np.dot(W.T, dZ_old) , relu_derivative(Z_list[i]) ) 
+            dZ = np.multiply(np.dot(W.T, dZ_old) , tanh_derivative(Z_list[i]) ) 
             
             #print("resulting "+str(dZ.shape))
             
@@ -89,6 +89,8 @@ def back_propagation(Z_list, A_list):
     
     end = time.time()
     #print("Elapsed time [s]: " + str(end- start))
+    
+    print(dW_list[0][0][1])
     
     return (dW_list, db_list)
     

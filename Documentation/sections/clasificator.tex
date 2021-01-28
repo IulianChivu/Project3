@@ -1,0 +1,61 @@
+\section{Clasificatorul}
+
+\quad In prima parte a lucrarii ne-am propus sa dezvoltam un clasificator 
+multi-clasa, insa avand in vedere dificultatile tehnice intalnite ne-am rezumat la 
+dezvoltarea unui clasificator ce poate distinge intre doua clase. Arhitectura retelei
+neuronale devine in acest fel de tipul unui perceptron multi-nivel (MLP).
+Perceptronul multi-nivel sau multi-strat se compune dintr-o multitudine de straturi
+computationale succesive formate la randul lor din unitati computationale individuale
+denumite neuroni. MLP-ul este format dintr-un strat de intrare ce se conecteaza cu
+urmatorul prin intermediul unor ponderi, urmatoarele straturi dupa cel de intrare
+se vor denumi straturi ascunse iar ultimul strat va fi cel de iesire. In arhitectura
+aleasa de noi toti neuronii de pe stratul $ l $ sunt in totalitate conectati cu
+cei de pe stratul $ l+1 $. La nivelul neuronilor au loc doua tipuri de computatii,
+una liniara, urmata mai apoi de una neliniara.
+Vom denumi si nota in continuare: $ L $ = numarul
+total de straturi; $ n^{[l]} $ = numarul de neuroni de pe stratul $ l $;
+$ w^{[l]}_{ji} $ = ponderea ce conecteaza neuronul $ i $ de pe stratul $ l-1 $
+cu neuronul $ j $ de pe stratul $ l $. $ b^{[l]}_i $ = termenul liber $ i $ de pe
+stratul $ l $; $ E(\hat{y}, y) $ = functia de eroare; $ J(w, b) $ = functia de
+cost.
+
+\begin{figure}[H]
+	\includegraphics[width=12cm]{retea.png}
+	\centering
+	\caption{Arhitectura generala a clasificatorului multi-clasa}
+\end{figure}
+
+Algoritmul de invatare al retelei cuprinde doua etape: etapa de forward propagation si etapa de backpropagation, prima reprezinta computatia efectuata de retea pentru a 
+putea clasifica valorile de pe stratul de intrare, iar cea de-a doua este necesara 
+pentru corectia ponderilor astfel incat predictia/clasificarea retelei sa se
+imbunatateasca.
+
+Pentru a putea beneficia de avantajul de timp oferit de algoritmii de calcul
+paraleli, am decis sa vectorizam operatiile de calul ale retelei. Am grupat astfel
+ponderile si termenii liberi in seturi de matrici corespunzatoare 
+computatiilor efectuate la propagarea intre straturi. Partea de calcul neliniara
+efectuata de neuroni este descrisa de o functie de activare, in aceasta lucrare
+am folosit ca functii de activare: Sigmoid, tangenta hiperbolica si 
+ReLU (Rectified Linear Unit). Ca metoda de optimizare am ales metoda gradientului
+descendent. Deoarece dorim sa clasificam doua clase, vom considera simbolurile 
+ce le vor reprezenta ca 0 si 1. Ne-am definit deci, o functie de eroare
+a stratului de iesire in concordanta cu entropia canalului informational
+binar: \\
+$  E(\hat{y}, y) =   y\log{\left( \hat{y} \right)} + \left( 1 - y \right) \log{ \left( 1 - \hat{y} \right)}  $ \\
+
+
+Pentru a afla eroarea asupra intregului set de date am definit functia de cost ca fiind:
+$ J(w, b) = - \frac{1}{m} \sum_{i=1}^{m} \left( y^{(i)} \log{\left( a^{[L](i)} \right)} + \left( 1 - y^{(i)} \right) \log{ \left( 1 - a^{[L](i)} \right)} \right)$ \\ \\
+
+
+
+\textcolor{red}{Din pacate nu am reusit sa facem reteaua sa functioneze pe 
+actualul set de date.  Chiar daca funtia de cost are aliura dorita, rata sa
+de descrestere nu este semnificativa.}
+
+
+\begin{figure}[H]
+	\includegraphics[width=14cm]{cost.png}
+	\centering
+	\caption{Descresterea functiei de cost pentru intregul set de date}
+\end{figure}

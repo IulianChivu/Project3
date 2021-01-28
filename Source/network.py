@@ -24,11 +24,11 @@ Y = np.array(Y_temp).astype('float')
 
 initialize_weights_biases()
 
-LEARNING_RATE = 0.05
+LEARNING_RATE = 0.001
 
 cost_list = list()
 
-for i in range(20):
+for i in range(100):
     
     ffw = feed_forward()
     prediction = ffw[1][ len(ffw[1]) - 1]
@@ -43,5 +43,8 @@ for i in range(20):
 end = time.time()
 print("Time spent training [s]: " + str(end- start))
 
+plt.title("Functia de cost")
+plt.xlabel("Numar de iteratii")
+plt.ylabel("Cost")
 plt.plot(cost_list)
 plt.show()

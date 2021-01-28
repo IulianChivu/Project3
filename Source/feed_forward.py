@@ -57,7 +57,7 @@ def feed_forward():
         Z_list.append(Z)
         
         if i != L-2:
-            A = relu(Z)
+            A = tanh(Z)
             A_list.append(A)
         else:
             A = sigmoid(Z)

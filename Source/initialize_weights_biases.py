@@ -31,7 +31,7 @@ def initialize_weights_biases():
     np.random.seed(1)
     
     for i in range(WEIGHTS_SETS):
-        w = np.random.rand(WEIGHTS_DIMS[i][0],WEIGHTS_DIMS[i][1])
+        w = np.random.randn(WEIGHTS_DIMS[i][0],WEIGHTS_DIMS[i][1]) * 0.1
         file_name = '../Weights/w' + str(i) + ".csv"
         np.savetxt(file_name, w, delimiter=',')
         
